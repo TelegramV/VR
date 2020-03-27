@@ -73,7 +73,7 @@ const Button = ({onClick}, content) => {
 // Component
 class Title extends StatelessComponent {
     render(state, props) {
-        return h1(null, props.title);
+        return h1(props.title);
     }
 }
 
@@ -88,7 +88,7 @@ class Counter extends StatefulComponent {
     };
 
     render(state) {
-        return div(null, 
+        return div(
             $c(Title, {title: state.count}),
             $c(Button, {onClick: () => this.setState({
                 count: this.state.count + 1
