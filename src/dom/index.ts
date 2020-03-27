@@ -20,7 +20,7 @@ import createElement from "./createElement";
 
 const VRDOM = {
     createElement: createElement,
-    Fragment: null
+    Fragment: null,
 };
 
 export default VRDOM;

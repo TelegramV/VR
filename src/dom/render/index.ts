@@ -1,4 +1,3 @@
-"use strict";
 /*
  * Telegram V
  * Copyright (C) 2020 Davyd Kohut
@@ -16,13 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+
+import {VRNode} from "../VRElement";
+import ComponentNode from "../ComponentNode";
+
+const render = (node: VRNode): HTMLElement | Text => {
+    if (node instanceof ComponentNode) {
+        return renderComponentNode(node);
+    }
+
+
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const createElement_1 = __importDefault(require("./createElement"));
-const VRDOM = {
-    createElement: createElement_1.default,
-    Fragment: null,
-};
-exports.default = VRDOM;
+
+export default render;

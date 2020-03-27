@@ -16,27 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import ComponentNode from "./ComponentNode";
+
 export type VRElementAttrs = null | any;
 
 export type VRElementListeners = {
     [key: string]: (event: Event) => any;
 } | null;
 
-export type VRNode = VRElement | any;
+export type VRNode = VRElement | ComponentNode | any;
 
 export type VRElementChildren = Array<VRNode>;
+export type VRElementStyle = any;
+export type VRElementRef = any;
 
 export type VRElementProps = {
-    attributes: VRElementAttrs;
-    listeners: VRElementListeners;
-    children: VRElementChildren;
+    attributes?: VRElementAttrs;
+    listeners?: VRElementListeners;
+    children?: VRElementChildren;
+    style?: VRElementChildren;
+    ref?: VRElementRef;
+    dangerouslySetInnerHTML?: string;
 };
 
 class VRElement {
     public tagName: string;
-    public attributes: VRElementAttrs = null;
-    public listeners: VRElementListeners = null;
-    public children: VRElementChildren = [];
+    public attributes: VRElementAttrs | undefined = null;
+    public listeners: VRElementListeners | undefined = null;
+    public children: VRElementChildren | undefined = [];
+    public style: VRElementStyle | undefined = null;
+    public ref: VRElementRef | undefined = null;
+    public dangerouslySetInnerHTML: string | null | undefined = null;
 
     constructor(tagName: string, props?: VRElementProps) {
         this.tagName = tagName;
@@ -44,6 +54,9 @@ class VRElement {
             this.attributes = props.attributes;
             this.listeners = props.listeners;
             this.children = props.children;
+            this.style = props.style;
+            this.ref = props.ref;
+            this.dangerouslySetInnerHTML = props.dangerouslySetInnerHTML;
         }
     }
 }

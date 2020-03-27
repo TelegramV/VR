@@ -16,29 +16,113 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import VRElement, {VRElementAttrs, VRElementChildren, VRElementProps} from "./VRElement";
+import VRElement, {VRElementAttrs, VRElementChildren, VRNode} from "./VRElement";
 import VRDOM from "./index";
+import processClassAttribute from "./attributeProcessors/processClassAttribute";
+import isTagNameComponentOrTemplate from "./check/isComponentOrTemplate";
+import isTagNameComponent from "./check/isTagNameComponent";
+import ComponentNode from "./ComponentNode";
 
-const createElement = (tagName: string, attrs: VRElementAttrs = null, ...children: VRElementChildren): VRElement => {
+const processors = new Map([
+    ["className", processClassAttribute],
+    ["class", processClassAttribute],
+]);
+
+const aliases = new Map([
+    ["className", "class"]
+]);
+
+const RENDER_IF_L = "renderif";
+const SHOW_IF_L = "showif";
+const HIDE_IF_L = "hideif";
+const REF_L = "ref";
+const DANGEROUSLY_SET_INNER_HTML_L = "ref";
+
+const createElement = (tagName: string, attrs: VRElementAttrs = null, ...children: VRElementChildren): VRNode | null => {
     if (tagName === VRDOM.Fragment) {
         console.warn("Fragments are not fully supported.")
     }
 
+    if (typeof tagName === "function") {
+        if (isTagNameComponent(tagName)) {
+            let ref = null;
+
+            if (attrs && attrs.ref) {
+                ref = attrs.ref;
+                delete attrs.ref;
+            }
+
+            return new ComponentNode(tagName, {attributes: attrs, children, ref})
+        }
+    }
+
+    // @ts-ignore
+    children = children.flat();
+
     const attributes: any = {};
     const listeners: any = {};
+    let style: any = attrs && attrs.style ? attrs.style : {};
+    let ref: any = null;
+    let dangerouslySetInnerHTML: any = null;
 
     if (attrs) {
         // @ts-ignore
-        for (const [k, v] of Object.entries(attrs)) {
-            if (k.startsWith("on")) {
-                listeners[k.substring(2).toLowerCase()] = v;
+        for (let [attrKey, attrValue] of Object.entries(attrs)) {
+            const isComponentOrTemplate = isTagNameComponentOrTemplate(tagName);
+
+            attrKey = aliases.has(attrKey) ? aliases.get(attrKey) : attrKey;
+            attrKey = isComponentOrTemplate ? attrKey : attrKey.toLowerCase();
+
+            if (attrKey.startsWith("on")) {
+                listeners[attrKey.substring(2).toLowerCase()] = attrValue;
+            } else if (processors.has(attrKey)) {
+                // @ts-ignore
+                attributes[attrKey] = processors.get(attrKey)(attrValue);
             } else {
-                attributes[k] = v;
+                let display = null;
+
+                switch (attrKey) {
+                    case SHOW_IF_L:
+                        display = attrValue ? null : "none";
+                        if (typeof style === "object") {
+                            style.display = display;
+                        } else {
+                            style += `;display:${display};`;
+                        }
+                        break;
+
+                    case HIDE_IF_L:
+                        display = attrValue ? "none" : null;
+                        if (typeof style === "object") {
+                            style.display = display;
+                        } else {
+                            style += `;display:${display};`;
+                        }
+                        break;
+
+                    case RENDER_IF_L:
+                        if (!attrValue) {
+                            return null;
+                        }
+                        break;
+
+                    case REF_L:
+                        ref = attrValue;
+                        break;
+
+                    case DANGEROUSLY_SET_INNER_HTML_L:
+                        dangerouslySetInnerHTML = attrValue;
+                        break;
+
+                    default:
+                        attributes[attrKey] = attrValue;
+                        break;
+                }
             }
         }
     }
 
-    return new VRElement(tagName, {attributes, listeners, children});
+    return new VRElement(tagName, {attributes, listeners, children, style, ref, dangerouslySetInnerHTML});
 };
 
 export default createElement;

@@ -16,55 +16,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// WIP
+import {a, article, body, div, head, html, link, section, title} from "./dom/elements";
 
-import VRDOM from "./dom";
+if (!Map || !Set) {
+    throw new Error("Map and Set are required.");
+}
 
-const div = VRDOM.createElement(
-    "div",
-    null,
-    VRDOM.createElement(
-        "ul",
-        {
-            className: "list"
-        },
-        VRDOM.createElement(
-            "li",
-            null,
-            "a"
-        ),
-        VRDOM.createElement(
-            "li",
-            null,
-            "b"
-        ),
-        VRDOM.createElement(
-            "li",
-            null,
-            "c"
-        ),
-        VRDOM.createElement(
-            "li",
-            null,
-            "d",
-            VRDOM.createElement(
-                "div",
-                null,
-                VRDOM.createElement(
-                    "a",
-                    {href: "gogol"},
-                    "gogol"
-                )
-            )
-        )
+// @ts-ignore
+if (!Array.prototype.flat) {
+    throw new Error("Array.prototype.flat() are required.");
+}
+
+const list = ["a", 1, "b"];
+
+const dom = html({},
+    ...list.map(v => div(null, v)),
+    head({renderIf: false},
+        title({}, 'Telegram V'),
+        link({rel: 'stylesheet', href: '/styles.css'}),
     ),
-    VRDOM.createElement(
-        "b",
-        null,
-        "123"
+    body({class: 'theme-dark', showIf: true},
+        div({class: 'header'},
+            a({class: 'header-link', href: '/'}, 'Telegram V')
+        ),
+        article({class: 'post'},
+            div({class: 'title'}, 'Telegram lost all users..'),
+            section({class: 'content'}, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+        ),
     ),
-    VRDOM.createElement("hr", null),
-    VRDOM.createElement("svg", null)
 );
 
-console.log("X", div);
+console.log(dom);
