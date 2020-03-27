@@ -62,7 +62,7 @@ No JSX (Awesome DOM):
 ```javascript
 
 import VRDOM from "@telegramv/vr/dom";
-import {h1, div, button, t} from "@telegramv/vr/dom/elements";
+import {h1, div, button, $c} from "@telegramv/vr/dom/elements";
 import {StatelessComponent, StatefulComponent} from "@telegramv/vr";
 
 // Template
@@ -89,8 +89,8 @@ class Counter extends StatefulComponent {
 
     render(state) {
         return div(null, 
-            t(Title, {title: state.count}),
-            t(Button, {onClick: () => this.setState({
+            $c(Title, {title: state.count}),
+            $c(Button, {onClick: () => this.setState({
                 count: this.state.count + 1
             })}, 'Increment')
         );
