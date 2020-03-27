@@ -16,47 +16,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Component, {ComponentProps} from "./Component";
+export type ComponentProps<P> = {
+    props: P;
+};
 
-export type StatefulComponentProps<P> = ComponentProps<P>;
-
-class StatefulComponent<S = any, P = any> extends Component<P> {
-    static defaultProps: any;
-
+/**
+ * Common Component Class.
+ */
+class Component<P> {
     readonly __: any = {
         intervals: new Set<number>(),
         timeouts: new Set<number>(),
     };
 
-    readonly state: S;
+    readonly $el: HTMLElement | undefined;
 
-    constructor(props: StatefulComponentProps<P>) {
-        super(props);
+    readonly props: P;
 
+    constructor(props: ComponentProps<P>) {
         // @ts-ignore
-        this.state = {};
+        this.props = props.props || {};
     }
 
-    render(state: S, props: P) {
+    withInterval(handler: TimerHandler, timeout?: number, ...args: any[]) {
+        this.__.intervals.add(setInterval(handler, timeout, ...args));
     }
 
-    componentDidMount() {
+    withTimeout(handler: TimerHandler, timeout?: number, ...args: any[]) {
+        this.__.timeouts.add(setTimeout(handler, timeout, ...args));
     }
 
-    componentDidUpdate(state: S, props: P) {
+    clearIntervals() {
+        // @ts-ignore
+        this.__.intervals.forEach(handle => clearInterval(handle));
+        this.__.intervals.clear();
     }
 
-    shouldComponentUpdate(nextState: S, nextProps: P): boolean | null {
-        return null;
-    }
-
-    setState(state: any) {
-        if (typeof state === "function") {
-            //
-        } else {
-            //
-        }
+    clearTimeouts() {
+        // @ts-ignore
+        this.__.timeouts.forEach(handle => clearTimeout(handle));
+        this.__.timeouts.clear();
     }
 }
 
-export default StatefulComponent;
+export default Component;

@@ -16,12 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Component from "./Component";
+class Publisher<S = () => any, E = any> {
+    private readonly subscriptions: Set<S> = new Set<S>();
 
-class StatelessComponent<P = any> extends Component<P> {
-    render(props: P) {
+    subscribe(subscription: S) {
+        this.subscriptions.add(subscription);
+    }
 
+    unsubscribe(subscription: S) {
+        this.subscriptions.delete(subscription);
+    }
+
+    fire(event: E) {
+        // @ts-ignore
+        this.subscriptions.forEach(subscription => subscription(event));
     }
 }
 
-export default StatelessComponent;
+export default Publisher;

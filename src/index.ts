@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {a, article, body, div, head, html, link, section, title} from "./dom/elements";
+import {$c, a, article, body, button, div, h1, head, html, link, section, span, title} from "./dom/elements";
+import StatefulComponent from "./StatefulComponent";
 
 if (!Map || !Set) {
     throw new Error("Map and Set are required.");
@@ -28,14 +29,14 @@ if (!Array.prototype.flat) {
 }
 
 // @ts-ignore
-if (!Object.prototype.entries) {
-    throw new Error("Object.prototype.entries() is required.");
+if (!Object.entries) {
+    throw new Error("Object.entries() is required.");
 }
 
 const list = ["a", 1, "b"];
 
-const dom = html({},
-    ...list.map(v => div(v)),
+const dom = html(
+    list.map(v => div(v)),
     head({renderIf: false},
         title('Telegram V'),
         link({rel: 'stylesheet', href: '/styles.css'}),
@@ -51,4 +52,54 @@ const dom = html({},
     ),
 );
 
-console.log(dom);
+type CounterState = {
+    count: number;
+};
+
+type CounterProps = {
+    text: string;
+};
+
+class Counter extends StatefulComponent<CounterState, CounterProps> {
+    state = {
+        count: 0
+    };
+
+    render(state: CounterState, props: CounterProps) {
+        return (
+            div(
+                h1(props.text),
+                span(state.count),
+                button({
+                    onClick: () => this.setState({
+                        count: state.count + 1
+                    })
+                }, 'Increment')
+            )
+        );
+    }
+}
+
+type TimeState = {
+    time: Date;
+}
+
+class Time extends StatefulComponent<TimeState> {
+    state = {
+        time: new Date()
+    };
+
+    render(state: TimeState, props: any) {
+        return h1(state.time.toString());
+    }
+
+    componentDidMount() {
+        this.withInterval(() => {
+            this.setState({
+                time: new Date()
+            });
+        }, 1000);
+    }
+}
+
+console.log($c(Counter));

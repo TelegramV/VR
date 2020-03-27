@@ -26,7 +26,7 @@ const Button = ({onClick}, content) => {
 
 // Component
 class Title extends StatelessComponent {
-    render(state, props) {
+    render(props) {
         return <h1>{props.title}</h1>;
     }
 }
@@ -60,7 +60,6 @@ console.log($element);
 
 No JSX (Awesome DOM):
 ```javascript
-
 import VRDOM from "@telegramv/vr/dom";
 import {h1, div, button, $c} from "@telegramv/vr/dom/elements";
 import {StatelessComponent, StatefulComponent} from "@telegramv/vr";
@@ -99,4 +98,35 @@ class Counter extends StatefulComponent {
 
 const $element = VRDOM.render(t(Counter));
 console.log($element);
+```
+
+TypeScript:
+```typescript
+import VRDOM from "@telegramv/vr/dom";
+import {h1, $c} from "@telegramv/vr/dom/elements";
+import {StatefulComponent} from "@telegramv/vr";
+
+type TimeState = {
+    time: Date;
+}
+
+class Time extends StatefulComponent<TimeState> {
+    state = {
+        time: new Date()
+    };
+
+    render(state: TimeState, props: any) {
+        return h1(state.time.toString());
+    }
+
+    componentDidMount() {
+        this.withInterval(() => {
+            this.setState({
+                time: new Date()
+            });
+        }, 500);
+    }
+}
+
+VRDOM.mount($c(Time), "#app")
 ```
