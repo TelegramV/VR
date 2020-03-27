@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import createElement from "./createElement";
+import vrdom_createElement from "./createElement";
 
 const VRDOM = {
-    createElement: createElement,
+    createElement: vrdom_createElement,
     Fragment: null,
 };
 

@@ -24,15 +24,20 @@ if (!Map || !Set) {
 
 // @ts-ignore
 if (!Array.prototype.flat) {
-    throw new Error("Array.prototype.flat() are required.");
+    throw new Error("Array.prototype.flat() is required.");
+}
+
+// @ts-ignore
+if (!Object.prototype.entries) {
+    throw new Error("Object.prototype.entries() is required.");
 }
 
 const list = ["a", 1, "b"];
 
 const dom = html({},
-    ...list.map(v => div(null, v)),
+    ...list.map(v => div(v)),
     head({renderIf: false},
-        title({}, 'Telegram V'),
+        title('Telegram V'),
         link({rel: 'stylesheet', href: '/styles.css'}),
     ),
     body({class: 'theme-dark', showIf: true},

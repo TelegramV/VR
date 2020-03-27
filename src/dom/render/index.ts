@@ -16,15 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {VRNode} from "../VRElement";
+import VRElement, {VRNode} from "../VRElement";
 import ComponentNode from "../ComponentNode";
+import vrdom_renderComponentNode from "./renderComponentNode";
+import vrdom_renderElement from "./renderElement";
+import vrdom_renderText from "./renderText";
 
-const render = (node: VRNode): HTMLElement | Text => {
-    if (node instanceof ComponentNode) {
-        return renderComponentNode(node);
-    }
-
-
+export type RenderProps = {
+    xmlns?: string;
 };
 
-export default render;
+const vrdom_render = (node: VRNode, props: RenderProps = {}): HTMLElement | Element | Text | null => {
+    if (node instanceof ComponentNode) {
+        return vrdom_renderComponentNode(node, props);
+    }
+
+    if (node instanceof VRElement) {
+        return vrdom_renderElement(node, props);
+    } else if (node == null) {
+        return null;
+    } else {
+        if (typeof node === "object") {
+            return vrdom_renderText(JSON.stringify(node));
+        } else {
+            return vrdom_renderText(node);
+        }
+    }
+};
+
+export default vrdom_render;

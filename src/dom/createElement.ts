@@ -38,7 +38,7 @@ const HIDE_IF_L = "hideif";
 const REF_L = "ref";
 const DANGEROUSLY_SET_INNER_HTML_L = "ref";
 
-const createElement = (tagName: string, attrs: VRElementAttrs = null, ...children: VRElementChildren): VRNode | null => {
+const vrdom_createElement = (tagName: string, attrs: VRElementAttrs = null, ...children: VRElementChildren): VRNode | null => {
     if (tagName === VRDOM.Fragment) {
         console.warn("Fragments are not fully supported.")
     }
@@ -125,4 +125,4 @@ const createElement = (tagName: string, attrs: VRElementAttrs = null, ...childre
     return new VRElement(tagName, {attributes, listeners, children, style, ref, dangerouslySetInnerHTML});
 };
 
-export default createElement;
+export default vrdom_createElement;

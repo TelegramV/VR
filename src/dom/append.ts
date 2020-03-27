@@ -16,8 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const vrdom_isTagNameComponentOrTemplate = (tagName) => {
-    return typeof tagName === "function"
-}
 
-export default vrdom_isTagNameComponentOrTemplate
+import vrdom_render, {RenderProps} from "./render";
+import {VRNode} from "./VRElement";
+
+const vrdom_append = (node: VRNode, $parent: HTMLElement, props: RenderProps = {}) => {
+    const $node = vrdom_render(node, props);
+
+    // @ts-ignore
+    $parent.appendChild($node);
+    vrdom_mounted(node, $node);
+
+    return $node;
+};
+
+export default vrdom_append;

@@ -20,9 +20,9 @@
 import StatefulComponent from "../../StatefulComponent"
 import StatelessComponent from "../../StatelessComponent"
 
-const isTagNameComponent = (tagName) => {
+const vrdom_isTagNameComponentOrTemplate = (tagName) => {
     return tagName.prototype instanceof StatefulComponent
-        || tagName.prototype instanceof StatelessComponent
+        || tagName.prototype instanceof StatelessComponent;
 }
 
-export default isTagNameComponent
+export default vrdom_isTagNameComponentOrTemplate;

@@ -1,5 +1,5 @@
 # VR
-Virtual DOM and Components with JSX support.
+Virtual DOM and Components with JSX support and Awesome DOM builder.
 
 ## Installation
 NPM:
@@ -14,6 +14,7 @@ yarn add @telegramv/vr
 
 ## Example
 JSX:
+> `VRDOM.createElement` is by default JSX-compatible.
 ```jsx harmony
 import VRDOM from "@telegramv/vr/dom";
 import {StatelessComponent, StatefulComponent} from "@telegramv/vr";
@@ -57,7 +58,7 @@ const $element = VRDOM.render(<Counter/>);
 console.log($element);
 ```
 
-No JSX:
+No JSX (Awesome DOM):
 ```javascript
 
 import VRDOM from "@telegramv/vr/dom";

@@ -16,6 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const renderComponentNode = () => {};
+import {VRNode} from "../VRElement";
+import {RenderProps} from "./index";
 
-export default renderComponentNode;
+const vrdom_renderComponentNode = (node: VRNode, props: RenderProps = {}): HTMLElement | Text => {
+};
+
+export default vrdom_renderComponentNode;

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const vrdom_isTagNameComponentOrTemplate = (tagName) => {
-    return typeof tagName === "function"
-}
+const vrdom_renderText = (text: any): Text => {
+    return document.createTextNode(text);
+};
 
-export default vrdom_isTagNameComponentOrTemplate
+export default vrdom_renderText;
