@@ -24,7 +24,7 @@ const Button = ({onClick}, content) => {
     return <button onClick={onClick}>{content}</button>;
 }
 
-// AbstractComponent
+// Component
 class Title extends StatelessComponent {
     render(props) {
         return <h1>{props.title}</h1>;
@@ -35,7 +35,7 @@ Title.defaultProps = {
     title: "Click `Increment`"
 };
 
-// AbstractComponent
+// Component
 class Counter extends StatefulComponent {
     state = {
         count: 0,
@@ -69,7 +69,7 @@ const Button = ({onClick}, content) => {
     return button({onClick: onClick}, content);
 }
 
-// AbstractComponent
+// Component
 class Title extends StatelessComponent {
     render(props) {
         return h1(props.title);
@@ -80,7 +80,7 @@ Title.defaultProps = {
     title: "Click `Increment`"
 };
 
-// AbstractComponent
+// Component
 class Counter extends StatefulComponent {
     state = {
         count: 0,
