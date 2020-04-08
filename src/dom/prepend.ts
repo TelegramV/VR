@@ -1,5 +1,6 @@
 import {VRNode} from "./VRElement";
 import vrdom_render, {RenderProps} from "./render";
+import vrdom_mounted from "./mounted";
 
 // @ts-ignore
 const vrdom_prepend = (node: VRNode, $el: Element, props: RenderProps = {}): Element => {

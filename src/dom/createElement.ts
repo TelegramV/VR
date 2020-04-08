@@ -70,6 +70,7 @@ const vrdom_createElement = (tagName: string, attrs: VRElementAttrs = null, ...c
         for (let [attrKey, attrValue] of Object.entries(attrs)) {
             const isComponentOrTemplate = isTagNameComponentOrTemplate(tagName);
 
+            // @ts-ignore
             attrKey = aliases.has(attrKey) ? aliases.get(attrKey) : attrKey;
             attrKey = isComponentOrTemplate ? attrKey : attrKey.toLowerCase();
 

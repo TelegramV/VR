@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import VR from "../VR";
+
 export type ComponentNodeProps = {
     attributes?: any;
     children?: any;

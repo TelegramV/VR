@@ -65,6 +65,7 @@ const vrdom_renderElement = (element: VRElement, props: RenderProps = {}): HTMLE
     // @ts-ignore
     for (let [k, v] of Object.entries(element.attributes)) {
         if (v != null) {
+            // @ts-ignore
             $el.setAttribute(k, v);
         }
     }
@@ -83,7 +84,7 @@ const vrdom_renderElement = (element: VRElement, props: RenderProps = {}): HTMLE
     for (const [k, v] of Object.entries(element.listeners)) {
         // @ts-ignore
         $el[`on${k}`] = v;
-        $el.__v.patched_events.add(k);
+        // $el.__v.patched_events.add(k);
     }
 
     if (element.children) {

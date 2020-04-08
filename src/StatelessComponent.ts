@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Component from "./Component";
+import AbstractComponent from "./AbstractComponent";
 
-class StatelessComponent<P = any> extends Component<P> {
+class StatelessComponent<P = any> extends AbstractComponent<P> {
     render(props: P) {
 
     }

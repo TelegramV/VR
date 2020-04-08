@@ -16,18 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Component, {ComponentProps} from "./Component";
+import AbstractComponent, {ComponentProps} from "./AbstractComponent";
 
 export type StatefulComponentProps<P> = ComponentProps<P>;
 
-class StatefulComponent<S = any, P = any> extends Component<P> {
-    static defaultProps: any;
-
-    readonly __: any = {
-        intervals: new Set<number>(),
-        timeouts: new Set<number>(),
-    };
-
+class StatefulComponent<S = any, P = any> extends AbstractComponent<P> {
     readonly state: S;
 
     constructor(props: StatefulComponentProps<P>) {

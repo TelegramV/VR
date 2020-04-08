@@ -16,15 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import vrdom_createElement from "./createElement";
-import vrdom_render from "./render";
-import vrdom_mount from "./mount";
+function __component_diffProps(component: any, nextProps: any): any {
 
-const VRDOM = {
-    createElement: vrdom_createElement,
-    render: vrdom_render,
-    mount: vrdom_mount,
-    Fragment: null,
-};
+}
 
-export default VRDOM;
+export default __component_diffProps;

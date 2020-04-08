@@ -16,15 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import vrdom_createElement from "./createElement";
-import vrdom_render from "./render";
-import vrdom_mount from "./mount";
+import VRElement from "../VRElement"
 
-const VRDOM = {
-    createElement: vrdom_createElement,
-    render: vrdom_render,
-    mount: vrdom_mount,
-    Fragment: null,
-};
+const vrdom_isVRNode = (value) => {
+    const vt = typeof value;
+    return value instanceof VRElement
+        || vt === "string"
+        || vt === "symbol"
+        || vt === "number"
+        || vt === "bigint"
+        || vt === "undefined"
+        || vt === "boolean"
+}
 
-export default VRDOM;
+export default vrdom_isVRNode;

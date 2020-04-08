@@ -16,17 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import VRElement from "../VRElement";
 import vrdom_createElement from "../createElement";
+import vrdom_isVRNode from "../check/isVRNode"
 
 const create = (tagName, ...props) => {
     if (props.length > 0) {
-        if (props[0] instanceof VRElement) {
-            return vrdom_createElement(tagName, null, ...props);
-        } else {
+        if (!vrdom_isVRNode(props[0])) {
             return vrdom_createElement(tagName, props[0], ...props.slice(1));
         }
     }
+
+    return vrdom_createElement(tagName, null, ...props);
 };
 
 export const div = (...props) => create("div", ...props);

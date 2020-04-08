@@ -24,7 +24,7 @@ const Button = ({onClick}, content) => {
     return <button onClick={onClick}>{content}</button>;
 }
 
-// Component
+// AbstractComponent
 class Title extends StatelessComponent {
     render(props) {
         return <h1>{props.title}</h1>;
@@ -33,9 +33,9 @@ class Title extends StatelessComponent {
 
 Title.defaultProps = {
     title: "Click `Increment`"
-}
+};
 
-// Component
+// AbstractComponent
 class Counter extends StatefulComponent {
     state = {
         count: 0,
@@ -69,18 +69,18 @@ const Button = ({onClick}, content) => {
     return button({onClick: onClick}, content);
 }
 
-// Component
+// AbstractComponent
 class Title extends StatelessComponent {
-    render(state, props) {
+    render(props) {
         return h1(props.title);
     }
 }
 
 Title.defaultProps = {
     title: "Click `Increment`"
-}
+};
 
-// Component
+// AbstractComponent
 class Counter extends StatefulComponent {
     state = {
         count: 0,
@@ -96,7 +96,7 @@ class Counter extends StatefulComponent {
     }
 }
 
-const $element = VRDOM.render(t(Counter));
+const $element = VRDOM.render($c(Counter));
 console.log($element);
 ```
 
@@ -108,7 +108,7 @@ import {StatefulComponent} from "@telegramv/vr";
 
 type TimeState = {
     time: Date;
-}
+};
 
 class Time extends StatefulComponent<TimeState> {
     state = {
@@ -128,5 +128,5 @@ class Time extends StatefulComponent<TimeState> {
     }
 }
 
-VRDOM.mount($c(Time), "#app")
+VRDOM.mount($c(Time), "#app");
 ```

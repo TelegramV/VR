@@ -19,6 +19,7 @@
 
 import vrdom_render, {RenderProps} from "./render";
 import {VRNode} from "./VRElement";
+import vrdom_mounted from "./mounted";
 
 const vrdom_append = (node: VRNode, $parent: HTMLElement, props: RenderProps = {}) => {
     const $node = vrdom_render(node, props);

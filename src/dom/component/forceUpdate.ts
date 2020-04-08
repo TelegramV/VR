@@ -16,15 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import vrdom_createElement from "./createElement";
-import vrdom_render from "./render";
-import vrdom_mount from "./mount";
+import __component_render from "./render";
 
-const VRDOM = {
-    createElement: vrdom_createElement,
-    render: vrdom_render,
-    mount: vrdom_mount,
-    Fragment: null,
-};
+export type ForceUpdateComponentProps = {};
 
-export default VRDOM;
+function __component_forceUpdate(component: any, props?: ForceUpdateComponentProps) {
+    component.__.isUpdatingItSelf = true;
+    component.$el = vrdom_patch(component.$el, __component_render(component));
+    component.__.isUpdatingItSelf = false;
+
+    component.componentDidUpdate(component.state, component.props); // todo: pass previous data
+}
+
+export default __component_forceUpdate;

@@ -16,18 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import VR from "./VR";
+import __component_update from "./dom/component/update";
+
 export type ComponentProps<P> = {
     props: P;
+    app: VR;
 };
 
-/**
- * Common Component Class.
- */
-class Component<P> {
+class AbstractComponent<P> {
+    static defaultProps: any;
+
     readonly __: any = {
+        initialized: false,
         intervals: new Set<number>(),
         timeouts: new Set<number>(),
     };
+
+    readonly app: VR;
 
     readonly $el: HTMLElement | undefined;
 
@@ -36,6 +42,10 @@ class Component<P> {
     constructor(props: ComponentProps<P>) {
         // @ts-ignore
         this.props = props.props || {};
+        this.app = props.app;
+    }
+
+    init() {
     }
 
     withInterval(handler: TimerHandler, timeout?: number, ...args: any[]) {
@@ -57,6 +67,12 @@ class Component<P> {
         this.__.timeouts.forEach(handle => clearTimeout(handle));
         this.__.timeouts.clear();
     }
+
+    forceUpdate() {
+        __component_update(this, {
+            force: true,
+        });
+    }
 }
 
-export default Component;
+export default AbstractComponent;

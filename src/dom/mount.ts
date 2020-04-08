@@ -1,5 +1,6 @@
 import vrdom_render, {RenderProps} from "./render";
 import {VRNode} from "./VRElement";
+import vrdom_mounted from "./mounted";
 
 export const vrdom_realMount = ($el: Element | Node | Text, $target: Element | Node | Text | string): Element => {
     if (typeof $target === "string") {

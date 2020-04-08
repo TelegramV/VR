@@ -16,15 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import vrdom_createElement from "./createElement";
-import vrdom_render from "./render";
-import vrdom_mount from "./mount";
+class VR {
+    liccid: number = 0;
+}
 
-const VRDOM = {
-    createElement: vrdom_createElement,
-    render: vrdom_render,
-    mount: vrdom_mount,
-    Fragment: null,
-};
-
-export default VRDOM;
+export default VR;

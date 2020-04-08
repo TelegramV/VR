@@ -16,15 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import vrdom_createElement from "./createElement";
-import vrdom_render from "./render";
-import vrdom_mount from "./mount";
+import {VRNode} from "../VRElement";
 
-const VRDOM = {
-    createElement: vrdom_createElement,
-    render: vrdom_render,
-    mount: vrdom_mount,
-    Fragment: null,
-};
+function __component_render(component: any): VRNode {
+    return component.render(component.state, component.props);
+}
 
-export default VRDOM;
+export default __component_render;

@@ -16,15 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import vrdom_createElement from "./createElement";
-import vrdom_render from "./render";
-import vrdom_mount from "./mount";
+const path = require("path");
 
-const VRDOM = {
-    createElement: vrdom_createElement,
-    render: vrdom_render,
-    mount: vrdom_mount,
-    Fragment: null,
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+    entry: "./html/main.js",
+    output: {
+        filename: "bundle.js",
+        path: path.resolve(__dirname, "dist"),
+    },
+    plugins: [
+        new HtmlWebpackPlugin({template: "./html/index.html"}),
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, "dist"),
+        compress: true,
+        port: 8090,
+    },
 };
-
-export default VRDOM;

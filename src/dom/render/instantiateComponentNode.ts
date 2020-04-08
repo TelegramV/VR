@@ -16,15 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import vrdom_createElement from "./createElement";
-import vrdom_render from "./render";
-import vrdom_mount from "./mount";
+import {VRNode} from "../VRElement";
+import {RenderProps} from "./index";
+import {ComponentRef} from "../../Ref";
 
-const VRDOM = {
-    createElement: vrdom_createElement,
-    render: vrdom_render,
-    mount: vrdom_mount,
-    Fragment: null,
+const vrdom_instantiateComponentNode = (node: VRNode, props: RenderProps = {}): HTMLElement | Text | null => {
+    const componentInstance: any = new (node.componentClass)({
+        props: node.attributes,
+        slot: node.children,
+    });
+
+    if (node.ref instanceof ComponentRef) {
+        node.ref.component = componentInstance;
+    }
+
+    return componentInstance;
 };
 
-export default VRDOM;
+export default vrdom_instantiateComponentNode;

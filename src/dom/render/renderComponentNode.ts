@@ -17,9 +17,26 @@
  */
 
 import {VRNode} from "../VRElement";
-import {RenderProps} from "./index";
+import ComponentNode from "../ComponentNode";
+import vrdom_render, {RenderProps} from "./index";
+import vrdom_instantiateComponentNode from "./instantiateComponentNode";
+import __component_render from "../component/render";
+import __component_init from "../component/init";
 
-const vrdom_renderComponentNode = (node: VRNode, props: RenderProps = {}): HTMLElement | Text => {
+const vrdom_renderComponentNode = (node: VRNode, props: RenderProps = {}): HTMLElement | Element | Text | null => {
+    const componentInstance: any = vrdom_instantiateComponentNode(node);
+
+    __component_init(componentInstance);
+
+    const renderedVRNode = __component_render(componentInstance);
+
+    if (renderedVRNode instanceof ComponentNode) {
+        throw new Error("Components on top level are forbidden.");
+    }
+
+    const $node = vrdom_render(renderedVRNode, props);
+
+    return $node;
 };
 
 export default vrdom_renderComponentNode;

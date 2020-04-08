@@ -16,21 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Publisher<S = () => any, E = any> {
-    private readonly subscriptions: Set<S> = new Set<S>();
-
-    subscribe(subscription: S) {
-        this.subscriptions.add(subscription);
-    }
-
-    unsubscribe(subscription: S) {
-        this.subscriptions.delete(subscription);
-    }
-
-    fire(event: E) {
-        // @ts-ignore
-        this.subscriptions.forEach(subscription => subscription(event));
-    }
+export class ElementRef {
 }
 
-export default Publisher;
+export class ComponentRef {
+
+}
+
+const Ref = {
+    element: (): ElementRef | null => null,
+    component: (): ComponentRef | null => null,
+};
+
+export default Ref;
