@@ -1,12 +1,12 @@
 {
   "name": "@telegramv/vr",
-  "version": "0.1.0-eggstage",
+  "version": "0.1.1-eggstage",
   "description": "Virtual DOM and Components.",
   "author": "Davyd Kohut",
   "license": "GPL-3.0",
-  "main": "lib/index.js",
+  "main": "src/VFramework.js",
   "files": [
-    "lib/**/*"
+    "src/**/*"
   ],
   "keywords": [
     "virtual dom",

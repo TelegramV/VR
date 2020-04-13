@@ -23,6 +23,9 @@
 // import VR from "../lib/VR"
 
 import VRDOM from "../src/VRDOM/VRDOM";
+import VComponent from "../src/VRDOM/component/VComponent";
+
+VComponent
 
 const button = VRDOM.jsx("button", {onClick: () => console.log("clicked")}, "click");
 
