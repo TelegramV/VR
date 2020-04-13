@@ -1,0 +1,25 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "exclude": [
+          "babel-plugin-transform-exponentiation-operator"
+        ]
+      }
+    ],
+    "@babel/preset-flow"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-class-properties",
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "pragma": "VRDOM.jsx",
+        "pragmaFrag": "VRDOM.Fragment"
+      }
+    ]
+  ]
+}
