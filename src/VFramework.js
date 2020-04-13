@@ -23,38 +23,39 @@ import VRDOMPlugin from "./VRDOM/plugin/VRDOMPlugin"
  */
 class VFramework {
 
-    latestInstantiatedComponent = 0
-    latestInstantiatedRef = 0
-
-    /**
-     * @type {Set<VRDOMPlugin>}
-     */
-    plugins = new Set()
-
-    /**
-     * @type {VRDOMInterceptor}
-     */
-    interceptor = undefined
-
-    /**
-     * @type {Map<string, VComponent>}
-     */
-    mountedComponents = new Map()
-
-    /**
-     * @type {Map<string, Ref | FragmentRef | ComponentRef>}
-     */
-    mountedRefs = new Map()
-
-    /**
-     * @type {VFrameworkRouter}
-     */
-    router = undefined
-
     /**
      * @param {VFrameworkRouter} router
      */
     constructor({router}) {
+
+
+        this.latestInstantiatedComponent = 0
+        this.latestInstantiatedRef = 0
+
+        /**
+         * @type {Set<VRDOMPlugin>}
+         */
+        this.plugins = new Set()
+
+        /**
+         * @type {VRDOMInterceptor}
+         */
+        this.interceptor = undefined
+
+        /**
+         * @type {Map<string, VComponent>}
+         */
+        this.mountedComponents = new Map()
+
+        /**
+         * @type {Map<string, Ref | FragmentRef | ComponentRef>}
+         */
+        this.mountedRefs = new Map()
+
+        /**
+         * @type {VFrameworkRouter}
+         */
+        this.router = undefined
         this.router = router
     }
 

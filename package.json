@@ -1,6 +1,6 @@
 {
   "name": "@telegramv/vr",
-  "version": "0.1.1-eggstage",
+  "version": "0.1.2-eggstage",
   "description": "Virtual DOM and Components.",
   "author": "Davyd Kohut",
   "license": "GPL-3.0",
